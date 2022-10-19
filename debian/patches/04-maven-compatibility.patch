@@ -1,0 +1,28 @@
+Description: Fixes the compatibility with the version of Maven in Debian
+Author: Emmanuel Bourg <ebourg@apache.org>
+Forwarded: no
+--- a/maven-autotag-plugin/src/test/java/org/apache/tiles/autotag/plugin/AbstractGenerateMojoTest.java
++++ b/maven-autotag-plugin/src/test/java/org/apache/tiles/autotag/plugin/AbstractGenerateMojoTest.java
+@@ -88,9 +88,9 @@
+         generator.generate(eq("my.package"), isA(TemplateSuite.class), eq(params), eq("my.package.Runtime"), eq("my.package.Request"));
+         expect(generator.isGeneratingClasses()).andReturn(true);
+         expect(generator.isGeneratingResources()).andReturn(true);
+-        expect(mavenProject.getResources()).andReturn(Collections.emptyList());
++        expect(mavenProject.getResources()).andReturn(Collections.<Resource>emptyList());
+         mavenProject.addResource(isA(Resource.class));
+-        expect(mavenProject.getCompileSourceRoots()).andReturn(Collections.emptyList());
++        expect(mavenProject.getCompileSourceRoots()).andReturn(Collections.<String>emptyList());
+         mavenProject.addCompileSourceRoot(classesOutputDirectory.getAbsolutePath());
+ 
+         replay(mavenProject, buildContext, mojo, factory, generator, params);
+--- a/maven-autotag-plugin/src/test/java/org/apache/tiles/autotag/plugin/CreateDescriptorMojoTest.java
++++ b/maven-autotag-plugin/src/test/java/org/apache/tiles/autotag/plugin/CreateDescriptorMojoTest.java
+@@ -92,7 +92,7 @@
+         mojo.requestClass = ExampleRequest.class.getName();
+         mojo.buildContext = buildContext;
+ 
+-        expect(mavenProject.getResources()).andReturn(Collections.emptyList());
++        expect(mavenProject.getResources()).andReturn(Collections.<Resource>emptyList());
+         mavenProject.addResource(isA(Resource.class));
+         expect(buildContext.newScanner(isA(File.class))).andReturn(scanner);
+         scanner.setIncludes(isA(String[].class));

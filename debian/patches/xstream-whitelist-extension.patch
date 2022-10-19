@@ -1,0 +1,47 @@
+From: Markus Koschany <apo@debian.org>
+Date: Sat, 13 Nov 2021 15:14:58 +0100
+Subject: xstream whitelist extension
+
+Forwarded: no
+---
+ .../main/java/org/apache/tiles/autotag/plugin/AbstractGenerateMojo.java  | 1 +
+ .../main/java/org/apache/tiles/autotag/plugin/CreateDescriptorMojo.java  | 1 +
+ .../java/org/apache/tiles/autotag/plugin/CreateDescriptorMojoTest.java   | 1 +
+ 3 files changed, 3 insertions(+)
+
+diff --git a/maven-autotag-plugin/src/main/java/org/apache/tiles/autotag/plugin/AbstractGenerateMojo.java b/maven-autotag-plugin/src/main/java/org/apache/tiles/autotag/plugin/AbstractGenerateMojo.java
+index 1764b37..2c0c09d 100644
+--- a/maven-autotag-plugin/src/main/java/org/apache/tiles/autotag/plugin/AbstractGenerateMojo.java
++++ b/maven-autotag-plugin/src/main/java/org/apache/tiles/autotag/plugin/AbstractGenerateMojo.java
+@@ -106,6 +106,7 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
+         	InputStream stream = templateSuite.getInputStream();
+             try {
+ 	            XStream xstream = new XStream(new Sun14ReflectionProvider());
++                xstream.allowTypesByWildcard(new String[]{"org.apache.tiles.autotag.**"});
+ 	            suite = (TemplateSuite) xstream.fromXML(stream);
+             } finally {
+ 	            stream.close();
+diff --git a/maven-autotag-plugin/src/main/java/org/apache/tiles/autotag/plugin/CreateDescriptorMojo.java b/maven-autotag-plugin/src/main/java/org/apache/tiles/autotag/plugin/CreateDescriptorMojo.java
+index ef52e03..b7b8c29 100644
+--- a/maven-autotag-plugin/src/main/java/org/apache/tiles/autotag/plugin/CreateDescriptorMojo.java
++++ b/maven-autotag-plugin/src/main/java/org/apache/tiles/autotag/plugin/CreateDescriptorMojo.java
+@@ -146,6 +146,7 @@ public class CreateDescriptorMojo extends AbstractMojo {
+ 		factory.setRequestClass(requestClass);
+ 		TemplateSuite suite = factory.createTemplateSuite();
+ 		XStream xstream = new XStream();
++		xstream.allowTypesByWildcard(new String[]{"org.apache.tiles.autotag.**"});
+ 		OutputStream os = buildContext.newFileOutputStream(outputFile);
+ 		Writer writer = new OutputStreamWriter(os);
+ 		xstream.toXML(suite, writer);
+diff --git a/maven-autotag-plugin/src/test/java/org/apache/tiles/autotag/plugin/CreateDescriptorMojoTest.java b/maven-autotag-plugin/src/test/java/org/apache/tiles/autotag/plugin/CreateDescriptorMojoTest.java
+index ba76369..1fc7dbe 100644
+--- a/maven-autotag-plugin/src/test/java/org/apache/tiles/autotag/plugin/CreateDescriptorMojoTest.java
++++ b/maven-autotag-plugin/src/test/java/org/apache/tiles/autotag/plugin/CreateDescriptorMojoTest.java
+@@ -106,6 +106,7 @@ public class CreateDescriptorMojoTest {
+         mojo.execute();
+         InputStream sis = new FileInputStream(new File(temp, "META-INF/template-suite.xml"));
+         XStream xstream = new XStream(new Sun14ReflectionProvider());
++        xstream.allowTypesByWildcard(new String[]{"org.apache.tiles.autotag.**"});
+         TemplateSuite suite = (TemplateSuite) xstream.fromXML(sis);
+         sis.close();
+         assertEquals("test", suite.getName());

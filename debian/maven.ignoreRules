@@ -1,0 +1,4 @@
+
+org.apache.maven.plugins maven-release-plugin * * * *
+org.apache.maven.plugins maven-scm-publish-plugin * * * *
+org.apache.maven maven-project * * * *

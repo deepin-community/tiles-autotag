@@ -1,0 +1,39 @@
+Description: Ignore the tests relying on the behavior of Velocity < 1.7
+Author: Emmanuel Bourg <ebourg@apache.org>
+Forwarded: not-needed
+--- a/tiles-autotag-core/src/test/java/org/apache/tiles/autotag/generate/AbstractTemplateSuiteGeneratorTest.java
++++ b/tiles-autotag-core/src/test/java/org/apache/tiles/autotag/generate/AbstractTemplateSuiteGeneratorTest.java
+@@ -182,6 +182,7 @@
+      * @throws ParseErrorException If something goes wrong.
+      * @throws ResourceNotFoundException If something goes wrong.
+      */
++    @org.junit.Ignore
+     @Test(expected = AutotagRuntimeException.class)
+     public void testGenerateException3() throws Exception {
+         directory.delete();
+@@ -210,6 +211,7 @@
+      * @throws ParseErrorException If something goes wrong.
+      * @throws ResourceNotFoundException If something goes wrong.
+      */
++    @org.junit.Ignore
+     @Test(expected = AutotagRuntimeException.class)
+     public void testGenerateException4() throws Exception {
+         directory.delete();
+--- a/tiles-autotag-core/src/test/java/org/apache/tiles/autotag/generate/AbstractTemplateClassGeneratorTest.java
++++ b/tiles-autotag-core/src/test/java/org/apache/tiles/autotag/generate/AbstractTemplateClassGeneratorTest.java
+@@ -185,6 +185,7 @@
+      * Test method for {@link AbstractTemplateClassGenerator#generate(File, String, TemplateSuite, TemplateClass, Map)}.
+      * @throws Exception If something goes wrong.
+      */
++    @org.junit.Ignore
+     @Test(expected = AutotagRuntimeException.class)
+     public void testGenerateException3() throws Exception {
+         directory.delete();
+@@ -216,6 +217,7 @@
+      * @throws ParseErrorException If something goes wrong.
+      * @throws ResourceNotFoundException If something goes wrong.
+      */
++    @org.junit.Ignore
+     @Test(expected = AutotagRuntimeException.class)
+     public void testGenerateException4() throws Exception {
+         directory.delete();

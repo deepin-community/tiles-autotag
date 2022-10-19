@@ -1,0 +1,37 @@
+Source: tiles-autotag
+Section: java
+Priority: optional
+Maintainer: Debian Java Maintainers <pkg-java-maintainers@lists.alioth.debian.org>
+Uploaders:
+ Emmanuel Bourg <ebourg@apache.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ default-jdk,
+ maven-debian-helper (>= 1.5)
+Build-Depends-Indep:
+ junit4,
+ libcommons-io-java,
+ libeasymock-java,
+ libfreemarker-java,
+ libmaven-bundle-plugin-java,
+ libmaven3-core-java,
+ libplexus-compiler-java,
+ libqdox-java,
+ libxstream-java,
+ velocity
+Standards-Version: 4.6.0
+Vcs-Git: https://salsa.debian.org/java-team/tiles-autotag.git
+Vcs-Browser: https://salsa.debian.org/java-team/tiles-autotag
+Homepage: https://tiles.apache.org/tiles-autotag/
+
+Package: libtiles-autotag-java
+Architecture: all
+Depends:
+ ${maven:Depends},
+ ${misc:Depends}
+Suggests:
+ ${maven:OptionalDepends}
+Description: Automatic tag generation for Apache Tiles
+ Autotag generates tags (or tag-like) artifact from a common template
+ code for a range of templating languages. JSP tags, Freemarker directive
+ models and Velocity directives are generated from a common template model.

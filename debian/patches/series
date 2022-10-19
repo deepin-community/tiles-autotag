@@ -1,0 +1,5 @@
+01-xmlpull-dependency.patch
+02-velocity-compatibility.patch
+03-reproducibility.patch
+04-maven-compatibility.patch
+xstream-whitelist-extension.patch
